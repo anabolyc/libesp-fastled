@@ -51,7 +51,10 @@ _FL_DEFPIN(4,4); _FL_DEFPIN(5,5);
 
 // These pins should be disabled, as they always cause WDT resets
 // _FL_DEFPIN(6,6); _FL_DEFPIN(7,7);
-// _FL_DEFPIN(8,8); _FL_DEFPIN(9,9); _FL_DEFPIN(10,10); _FL_DEFPIN(11,11);
+// _FL_DEFPIN(8,8); _FL_DEFPIN(11,11);
+
+// These two you can only use when flash mode set to DIO
+_FL_DEFPIN(9,9); _FL_DEFPIN(10,10);
 
 _FL_DEFPIN(12,12); _FL_DEFPIN(13,13); _FL_DEFPIN(14,14); _FL_DEFPIN(15,15);
 _FL_DEFPIN(16,16);
