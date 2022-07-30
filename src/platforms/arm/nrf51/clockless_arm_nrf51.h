@@ -47,8 +47,8 @@ public:
         mWait.mark();
     }
 
-    // This method is made static to force making register Y available to use for data on AVR - if the method is non-static, then
-    // gcc will use register Y for the this pointer.
+    // This method is made static to force making Y available to use for data on AVR - if the method is non-static, then
+    // gcc will use Y for the this pointer.
     static uint32_t showRGBInternal(PixelController<RGB_ORDER> pixels) {
         struct M0ClocklessData data;
         data.d[0] = pixels.d[0];

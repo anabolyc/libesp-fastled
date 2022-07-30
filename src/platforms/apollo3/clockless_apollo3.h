@@ -53,18 +53,18 @@ public:
 		// SysTick is 24-bit and counts down (not up)
 
 		// Stop the SysTick (just in case it is already running).
-		// This clears the ENABLE bit in the SysTick Control and Status Register (SYST_CSR).
-		// In Ambiq naming convention, the control register is SysTick->CTRL
+		// This clears the ENABLE bit in the SysTick Control and Status (SYST_CSR).
+		// In Ambiq naming convention, the control is SysTick->CTRL
 		am_hal_systick_stop();
 
 		// Call SysTick_Config
 		// This is defined in core_cm4.h
-		// It loads the specified LOAD value into the SysTick Reload Value Register (SYST_RVR)
-		// In Ambiq naming convention, the reload register is SysTick->LOAD
+		// It loads the specified LOAD value into the SysTick Reload Value (SYST_RVR)
+		// In Ambiq naming convention, the reload is SysTick->LOAD
 		// It sets the SysTick interrupt priority
-		// It clears the SysTick Current Value Register (SYST_CVR)
-		// In Ambiq naming convention, the current value register is SysTick->VAL
-		// Finally it sets these bits in the SysTick Control and Status Register (SYST_CSR):
+		// It clears the SysTick Current Value (SYST_CVR)
+		// In Ambiq naming convention, the current value is SysTick->VAL
+		// Finally it sets these bits in the SysTick Control and Status (SYST_CSR):
 		// CLKSOURCE: SysTick uses the processor clock
 		// TICKINT: When the count reaches zero, the SysTick exception (interrupt) is changed to pending
 		// ENABLE: Enables the counter
@@ -84,9 +84,9 @@ protected:
     	mWait.mark();
  	}
 
-	template<int BITS> __attribute__ ((always_inline)) inline static void writeBits(register uint32_t & next_mark, register uint8_t & b)  {
+	template<int BITS> __attribute__ ((always_inline)) inline static void writeBits(uint32_t & next_mark, uint8_t & b)  {
 		// SysTick counts down (not up) and is 24-bit
-		for(register uint32_t i = BITS-1; i > 0; i--) { // We could speed this up by using Bit Banding
+		for(uint32_t i = BITS-1; i > 0; i--) { // We could speed this up by using Bit Banding
 			while(__am_hal_systick_count() > next_mark) { ; } // Wait for the remainder of this cycle to complete
 				// Calculate next_mark (the time of the next DATA_PIN transition) by subtracting T1+T2+T3
 				// SysTick counts down (not up) and is 24-bit
@@ -120,20 +120,20 @@ protected:
 		}
 	}
 
-	// This method is made static to force making register Y available to use for data on AVR - if the method is non-static, then
-	// gcc will use register Y for the this pointer.
+	// This method is made static to force making Y available to use for data on AVR - if the method is non-static, then
+	// gcc will use Y for the this pointer.
 	static uint32_t showRGBInternal(PixelController<RGB_ORDER> pixels) {
 
 		// Setup the pixel controller and load/scale the first byte
 		pixels.preStepFirstByteDithering();
-		register uint8_t b = pixels.loadAndScale0();
+		uint8_t b = pixels.loadAndScale0();
 
 		cli();
 
 		// Calculate next_mark (the time of the next DATA_PIN transition) by subtracting T1+T2+T3
 		// SysTick counts down (not up) and is 24-bit
 		// The subtraction could underflow (wrap round) so let's mask the result to 24 bits
-		register uint32_t next_mark = (__am_hal_systick_count() - (T1+T2+T3)) & 0xFFFFFFUL;
+		uint32_t next_mark = (__am_hal_systick_count() - (T1+T2+T3)) & 0xFFFFFFUL;
 
 		while(pixels.has(1)) { // Keep going for as long as we have pixels
 			pixels.stepDithering();

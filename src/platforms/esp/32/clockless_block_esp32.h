@@ -82,14 +82,14 @@ public:
 
 #define ESP_ADJUST 0 // (2*(F_CPU/24000000))
 #define ESP_ADJUST2 0
-    template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(register uint32_t & last_mark, register Lines & b, PixelController<RGB_ORDER, LANES, PORT_MASK> &pixels) { // , register uint32_t & b2)  {
+    template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(uint32_t & last_mark, Lines & b, PixelController<RGB_ORDER, LANES, PORT_MASK> &pixels) { // , uint32_t & b2)  {
 	Lines b2 = b;
 	transpose8x1_noinline(b.bytes,b2.bytes);
 	
-	register uint8_t d = pixels.template getd<PX>(pixels);
-	register uint8_t scale = pixels.template getscale<PX>(pixels);
+	uint8_t d = pixels.template getd<PX>(pixels);
+	uint8_t scale = pixels.template getscale<PX>(pixels);
 	
-	for(register uint32_t i = 0; i < USED_LANES; ++i) {
+	for(uint32_t i = 0; i < USED_LANES; ++i) {
 	    while((__clock_cycles() - last_mark) < (T1+T2+T3));
 	    last_mark = __clock_cycles();
 	    *FastPin<FIRST_PIN>::sport() = PORT_MASK << REAL_FIRST_PIN;
@@ -104,7 +104,7 @@ public:
 	    b.bytes[i] = pixels.template loadAndScale<PX>(pixels,i,d,scale);
 	}
 
-	for(register uint32_t i = USED_LANES; i < 8; ++i) {
+	for(uint32_t i = USED_LANES; i < 8; ++i) {
 	    while((__clock_cycles() - last_mark) < (T1+T2+T3));
 	    last_mark = __clock_cycles();
 	    *FastPin<FIRST_PIN>::sport() = PORT_MASK << REAL_FIRST_PIN;
@@ -118,8 +118,8 @@ public:
 	}
     }
 
-    // This method is made static to force making register Y available to use for data on AVR - if the method is non-static, then
-    // gcc will use register Y for the this pointer.
+    // This method is made static to force making Y available to use for data on AVR - if the method is non-static, then
+    // gcc will use Y for the this pointer.
     static uint32_t showRGBInternal(PixelController<RGB_ORDER, LANES, PORT_MASK> &allpixels) {
 	
 	// Setup the pixel controller and load/scale the first byte

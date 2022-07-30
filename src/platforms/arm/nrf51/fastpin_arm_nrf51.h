@@ -3,8 +3,8 @@
 
 #if defined(NRF51)
 /// Template definition for teensy 3.0 style ARM pins, providing direct access to the various GPIO registers.  Note that this
-/// uses the full port GPIO registers.  In theory, in some way, bit-band register access -should- be faster, however I have found
-/// that something about the way gcc does register allocation results in the bit-band code being slower.  It will need more fine tuning.
+/// uses the full port GPIO registers.  In theory, in some way, bit-band access -should- be faster, however I have found
+/// that something about the way gcc does allocation results in the bit-band code being slower.  It will need more fine tuning.
 /// The registers are data output, set output, clear output, toggle output, input, and direction
 #if 0
 template<uint8_t PIN, uint32_t _MASK, typename _DIRSET, typename _DIRCLR, typename _OUTSET, typename _OUTCLR, typename _OUT> class _ARMPIN {
@@ -17,15 +17,15 @@ public:
 
     inline static void hi() __attribute__ ((always_inline)) { _OUTSET::r() = _MASK; }
     inline static void lo() __attribute__ ((always_inline)) { _OUTCLR::r() = _MASK; }
-    inline static void set(register port_t val) __attribute__ ((always_inline)) { _OUT::r() = val; }
+    inline static void set(port_t val) __attribute__ ((always_inline)) { _OUT::r() = val; }
 
     inline static void strobe() __attribute__ ((always_inline)) { toggle(); toggle(); }
 
     inline static void toggle() __attribute__ ((always_inline)) { _OUT::r() ^= _MASK; }
 
-    inline static void hi(register port_ptr_t port) __attribute__ ((always_inline)) { hi(); }
-    inline static void lo(register port_ptr_t port) __attribute__ ((always_inline)) { lo(); }
-    inline static void fastset(register port_ptr_t port, register port_t val) __attribute__ ((always_inline)) { *port = val; }
+    inline static void hi(port_ptr_t port) __attribute__ ((always_inline)) { hi(); }
+    inline static void lo(port_ptr_t port) __attribute__ ((always_inline)) { lo(); }
+    inline static void fastset(port_ptr_t port, port_t val) __attribute__ ((always_inline)) { *port = val; }
 
     inline static port_t hival() __attribute__ ((always_inline)) { return _OUT::r() | _MASK; }
     inline static port_t loval() __attribute__ ((always_inline)) { return _OUT::r() & ~_MASK; }
@@ -79,15 +79,15 @@ public:
 
     inline static void hi() __attribute__ ((always_inline)) { FL_NRF_GPIO->OUTSET = _MASK; }
     inline static void lo() __attribute__ ((always_inline)) { FL_NRF_GPIO->OUTCLR= _MASK; }
-    inline static void set(register port_t val) __attribute__ ((always_inline)) { FL_NRF_GPIO->OUT = val; }
+    inline static void set(port_t val) __attribute__ ((always_inline)) { FL_NRF_GPIO->OUT = val; }
 
     inline static void strobe() __attribute__ ((always_inline)) { toggle(); toggle(); }
 
     inline static void toggle() __attribute__ ((always_inline)) { FL_NRF_GPIO->OUT ^= _MASK; }
 
-    inline static void hi(register port_ptr_t port) __attribute__ ((always_inline)) { hi(); }
-    inline static void lo(register port_ptr_t port) __attribute__ ((always_inline)) { lo(); }
-    inline static void fastset(register port_ptr_t port, register port_t val) __attribute__ ((always_inline)) { *port = val; }
+    inline static void hi(port_ptr_t port) __attribute__ ((always_inline)) { hi(); }
+    inline static void lo(port_ptr_t port) __attribute__ ((always_inline)) { lo(); }
+    inline static void fastset(port_ptr_t port, port_t val) __attribute__ ((always_inline)) { *port = val; }
 
     inline static port_t hival() __attribute__ ((always_inline)) { return FL_NRF_GPIO->OUT | _MASK; }
     inline static port_t loval() __attribute__ ((always_inline)) { return FL_NRF_GPIO->OUT & ~_MASK; }

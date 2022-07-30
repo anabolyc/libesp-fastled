@@ -125,18 +125,18 @@ public:
 	}
 
 	// Write a block of n uint8_ts out
-	template <class D> void writeBytes(register uint8_t *data, int len) {
+	template <class D> void writeBytes(uint8_t *data, int len) {
 		//setSPIRate();
 		uint8_t *end = data + len;
 		select();
 		while(data != end) {
-			// a slight touch of delay here helps optimize the timing of the status register check loop (not used on ARM)
+			// a slight touch of delay here helps optimize the timing of the status check loop (not used on ARM)
 			writeByte(D::adjust(*data++)); delaycycles<3>();
 		}
 		release();
 	}
 
-	void writeBytes(register uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
+	void writeBytes(uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
 
 	// write a block of uint8_ts out in groups of three.  len is the total number of uint8_ts to write out.  The template
 	// parameters indicate how many uint8_ts to skip at the beginning and/or end of each grouping
@@ -271,18 +271,18 @@ public:
 	}
 
 	// Write a block of n uint8_ts out
-	template <class D> void writeBytes(register uint8_t *data, int len) {
+	template <class D> void writeBytes(uint8_t *data, int len) {
 		//setSPIRate();
 		uint8_t *end = data + len;
 		select();
 		while(data != end) {
-			// a slight touch of delay here helps optimize the timing of the status register check loop (not used on ARM)
+			// a slight touch of delay here helps optimize the timing of the status check loop (not used on ARM)
 			writeByte(D::adjust(*data++)); delaycycles<3>();
 		}
 		release();
 	}
 
-	void writeBytes(register uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
+	void writeBytes(uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
 
 	// write a block of uint8_ts out in groups of three.  len is the total number of uint8_ts to write out.  The template
 	// parameters indicate how many uint8_ts to skip at the beginning and/or end of each grouping
@@ -432,18 +432,18 @@ public:
 	}
 
 	// Write a block of n uint8_ts out
-	template <class D> void writeBytes(register uint8_t *data, int len) {
+	template <class D> void writeBytes(uint8_t *data, int len) {
 		//setSPIRate();
 		uint8_t *end = data + len;
 		select();
 		while(data != end) {
-			// a slight touch of delay here helps optimize the timing of the status register check loop (not used on ARM)
+			// a slight touch of delay here helps optimize the timing of the status check loop (not used on ARM)
 			writeByte(D::adjust(*data++)); delaycycles<3>();
 		}
 		release();
 	}
 
-	void writeBytes(register uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
+	void writeBytes(uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
 
 	// write a block of uint8_ts out in groups of three.  len is the total number of uint8_ts to write out.  The template
 	// parameters indicate how many uint8_ts to skip at the beginning and/or end of each grouping
@@ -612,18 +612,18 @@ public:
 	}
 
 	// Write a block of n uint8_ts out
-	template <class D> void writeBytes(register uint8_t *data, int len) {
+	template <class D> void writeBytes(uint8_t *data, int len) {
 		//setSPIRate();
 		uint8_t *end = data + len;
 		select();
 		while(data != end) {
-			// a slight touch of delay here helps optimize the timing of the status register check loop (not used on ARM)
+			// a slight touch of delay here helps optimize the timing of the status check loop (not used on ARM)
 			writeByte(D::adjust(*data++)); delaycycles<3>();
 		}
 		release();
 	}
 
-	void writeBytes(register uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
+	void writeBytes(uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
 
 	// write a block of uint8_ts out in groups of three.  len is the total number of uint8_ts to write out.  The template
 	// parameters indicate how many uint8_ts to skip at the beginning and/or end of each grouping
@@ -790,18 +790,18 @@ public:
 	}
 
 	// Write a block of n uint8_ts out
-	template <class D> void writeBytes(register uint8_t *data, int len) {
+	template <class D> void writeBytes(uint8_t *data, int len) {
 		//setSPIRate();
 		uint8_t *end = data + len;
 		select();
 		while(data != end) {
-			// a slight touch of delay here helps optimize the timing of the status register check loop (not used on ARM)
+			// a slight touch of delay here helps optimize the timing of the status check loop (not used on ARM)
 			writeByte(D::adjust(*data++)); delaycycles<3>();
 		}
 		release();
 	}
 
-	void writeBytes(register uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
+	void writeBytes(uint8_t *data, int len) { writeBytes<DATA_NOP>(data, len); }
 
 	// write a block of uint8_ts out in groups of three.  len is the total number of uint8_ts to write out.  The template
 	// parameters indicate how many uint8_ts to skip at the beginning and/or end of each grouping

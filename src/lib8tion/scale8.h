@@ -138,7 +138,7 @@ LIB8STATIC_ALWAYS_INLINE uint8_t scale8_video( uint8_t i, fract8 scale)
 }
 
 
-/// This version of scale8 does not clean up the R1 register on AVR
+/// This version of scale8 does not clean up the R1 on AVR
 /// If you are doing several 'scale8's in a row, use this, and
 /// then explicitly call cleanup_R1.
 LIB8STATIC_ALWAYS_INLINE uint8_t scale8_LEAVING_R1_DIRTY( uint8_t i, fract8 scale)
@@ -180,7 +180,7 @@ LIB8STATIC_ALWAYS_INLINE uint8_t scale8_LEAVING_R1_DIRTY( uint8_t i, fract8 scal
 }
 
 /// In place modifying version of scale8, also this version of nscale8 does not
-/// clean up the R1 register on AVR
+/// clean up the R1 on AVR
 /// If you are doing several 'scale8's in a row, use this, and
 /// then explicitly call cleanup_R1.
 
@@ -222,7 +222,7 @@ LIB8STATIC_ALWAYS_INLINE void nscale8_LEAVING_R1_DIRTY( uint8_t& i, fract8 scale
 }
 
 
-/// This version of scale8_video does not clean up the R1 register on AVR
+/// This version of scale8_video does not clean up the R1 on AVR
 /// If you are doing several 'scale8_video's in a row, use this, and
 /// then explicitly call cleanup_R1.
 LIB8STATIC_ALWAYS_INLINE uint8_t scale8_video_LEAVING_R1_DIRTY( uint8_t i, fract8 scale)
@@ -267,7 +267,7 @@ LIB8STATIC_ALWAYS_INLINE uint8_t scale8_video_LEAVING_R1_DIRTY( uint8_t i, fract
 }
 
 /// In place modifying version of scale8_video, also this version of nscale8_video
-/// does not clean up the R1 register on AVR
+/// does not clean up the R1 on AVR
 /// If you are doing several 'scale8_video's in a row, use this, and
 /// then explicitly call cleanup_R1.
 LIB8STATIC_ALWAYS_INLINE void nscale8_video_LEAVING_R1_DIRTY( uint8_t & i, fract8 scale)
@@ -292,7 +292,7 @@ LIB8STATIC_ALWAYS_INLINE void nscale8_video_LEAVING_R1_DIRTY( uint8_t & i, fract
 #endif
 }
 
-/// Clean up the r1 register after a series of *LEAVING_R1_DIRTY calls
+/// Clean up the r1 after a series of *LEAVING_R1_DIRTY calls
 LIB8STATIC_ALWAYS_INLINE void cleanup_R1()
 {
 #if CLEANUP_R1_AVRASM == 1

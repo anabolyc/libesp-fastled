@@ -50,8 +50,8 @@ protected:
     	mWait.mark();
   	}
 
-	template<int BITS> __attribute__ ((always_inline)) inline void writeBits(register uint32_t & next_mark, register uint32_t & b)  {
-		for(register uint32_t i = BITS-1; i > 0; --i) {
+	template<int BITS> __attribute__ ((always_inline)) inline void writeBits(uint32_t & next_mark, uint32_t & b)  {
+		for(uint32_t i = BITS-1; i > 0; --i) {
 			while(ARM_DWT_CYCCNT < next_mark);
 			next_mark = ARM_DWT_CYCCNT + off[0];
 			FastPin<DATA_PIN>::hi();
@@ -83,7 +83,7 @@ protected:
 
 		// Setup the pixel controller and load/scale the first byte
 		pixels.preStepFirstByteDithering();
-		register uint32_t b = pixels.loadAndScale0();
+		uint32_t b = pixels.loadAndScale0();
 
 		cli();
 

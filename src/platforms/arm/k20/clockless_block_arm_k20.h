@@ -83,18 +83,18 @@ public:
 		uint32_t raw[3];
 	} Lines;
 
-	template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(register uint32_t & next_mark, register Lines & b, PixelController<RGB_ORDER, LANES, PORT_MASK> &pixels) { // , register uint32_t & b2)  {
-		register Lines b2;
+	template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(uint32_t & next_mark, Lines & b, PixelController<RGB_ORDER, LANES, PORT_MASK> &pixels) { // , uint32_t & b2)  {
+		Lines b2;
 		if(USED_LANES>8) {
 			transpose8<1,2>(b.bytes,b2.bytes);
 			transpose8<1,2>(b.bytes+8,b2.bytes+1);
 		} else {
 			transpose8x1(b.bytes,b2.bytes);
 		}
-		register uint8_t d = pixels.template getd<PX>(pixels);
-		register uint8_t scale = pixels.template getscale<PX>(pixels);
+		uint8_t d = pixels.template getd<PX>(pixels);
+		uint8_t scale = pixels.template getscale<PX>(pixels);
 
-		for(register uint32_t i = 0; i < (USED_LANES/2); ++i) {
+		for(uint32_t i = 0; i < (USED_LANES/2); ++i) {
 			while(ARM_DWT_CYCCNT < next_mark);
 			next_mark = ARM_DWT_CYCCNT + (T1+T2+T3)-3;
 			*FastPin<FIRST_PIN>::sport() = PORT_MASK;
@@ -118,7 +118,7 @@ public:
 			b.bytes[USED_LANES-1] = pixels.template loadAndScale<PX>(pixels,USED_LANES-1,d,scale);
 		}
 
-		for(register uint32_t i = USED_LANES/2; i < 8; ++i) {
+		for(uint32_t i = USED_LANES/2; i < 8; ++i) {
 			while(ARM_DWT_CYCCNT < next_mark);
 			next_mark = ARM_DWT_CYCCNT + (T1+T2+T3)-3;
 			*FastPin<FIRST_PIN>::sport() = PORT_MASK;
@@ -138,8 +138,8 @@ public:
 
 
 
-	// This method is made static to force making register Y available to use for data on AVR - if the method is non-static, then
-	// gcc will use register Y for the this pointer.
+	// This method is made static to force making Y available to use for data on AVR - if the method is non-static, then
+	// gcc will use Y for the this pointer.
 		static uint32_t showRGBInternal(PixelController<RGB_ORDER, LANES, PORT_MASK> &allpixels) {
 		// Get access to the clock
 		ARM_DEMCR    |= ARM_DEMCR_TRCENA;
@@ -148,7 +148,7 @@ public:
 
 		// Setup the pixel controller and load/scale the first byte
 		allpixels.preStepFirstByteDithering();
-		register Lines b0;
+		Lines b0;
 
 		allpixels.preStepFirstByteDithering();
 		for(int i = 0; i < USED_LANES; ++i) {
@@ -245,14 +245,14 @@ public:
 		uint32_t raw[4];
 	} Lines;
 
-	template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(register uint32_t & next_mark, register Lines & b, PixelController<RGB_ORDER,LANES, PMASK> &pixels) { // , register uint32_t & b2)  {
-		register Lines b2;
+	template<int BITS,int PX> __attribute__ ((always_inline)) inline static void writeBits(uint32_t & next_mark, Lines & b, PixelController<RGB_ORDER,LANES, PMASK> &pixels) { // , uint32_t & b2)  {
+		Lines b2;
 		transpose8x1(b.bytes,b2.bytes);
 		transpose8x1(b.bytes+8,b2.bytes+8);
-		register uint8_t d = pixels.template getd<PX>(pixels);
-		register uint8_t scale = pixels.template getscale<PX>(pixels);
+		uint8_t d = pixels.template getd<PX>(pixels);
+		uint8_t scale = pixels.template getscale<PX>(pixels);
 
-		for(register uint32_t i = 0; (i < LANES) && (i < 8); ++i) {
+		for(uint32_t i = 0; (i < LANES) && (i < 8); ++i) {
 			while(ARM_DWT_CYCCNT < next_mark);
 			next_mark = ARM_DWT_CYCCNT + (T1+T2+T3)-3;
 			*FastPin<PORTD_FIRST_PIN>::sport() = PMASK_LO;
@@ -275,8 +275,8 @@ public:
 
 
 
-	// This method is made static to force making register Y available to use for data on AVR - if the method is non-static, then
-	// gcc will use register Y for the this pointer.
+	// This method is made static to force making Y available to use for data on AVR - if the method is non-static, then
+	// gcc will use Y for the this pointer.
 		static uint32_t showRGBInternal(PixelController<RGB_ORDER,LANES, PMASK> &allpixels) {
 		// Get access to the clock
 		ARM_DEMCR    |= ARM_DEMCR_TRCENA;
@@ -285,7 +285,7 @@ public:
 
 		// Setup the pixel controller and load/scale the first byte
 		allpixels.preStepFirstByteDithering();
-		register Lines b0;
+		Lines b0;
 
 		allpixels.preStepFirstByteDithering();
 		for(int i = 0; i < LANES; ++i) {

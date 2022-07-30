@@ -61,7 +61,7 @@
 #define FASTLED_USING_NAMESPACE
 #endif
 
-// Arduino.h needed for convenience functions digitalPinToPort/BitMask/portOutputRegister and the pinMode methods.
+// Arduino.h needed for convenience functions digitalPinToPort/BitMask/portOutputand the pinMode methods.
 #ifdef ARDUINO
 #include <Arduino.h>
 #endif

@@ -107,7 +107,7 @@ void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGB & rgb)
     // or
     //   ((ramp    ) * othervalue) /  64
     // It depends on your processor architecture.
-    // On 8-bit AVR, the "/ 256" is just a one-cycle register move,
+    // On 8-bit AVR, the "/ 256" is just a one-cycle move,
     // but the "/ 64" might be a multicycle shift process. So on AVR
     // it's faster do multiply the ramp values by four, and then
     // divide by 256.
@@ -219,8 +219,8 @@ void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGB & rgb)
     uint8_t rampdown_adj_with_floor = rampdown_amp_adj + brightness_floor;
 
 
-    // keep gcc from using "X" as the index register for storing
-    // results back in the return structure.  AVR's X register can't
+    // keep gcc from using "X" as the index for storing
+    // results back in the return structure.  AVR's X can't
     // do "std X+q, rnn", but the Y and Z registers can.
     // if the pointer to 'rgb' is in X, gcc will add all kinds of crazy
     // extra instructions.  Simply killing X here seems to help it
